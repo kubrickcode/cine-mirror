@@ -3,6 +3,11 @@ version: "3.8"
 services:
   workspace:
     image: mcr.microsoft.com/devcontainers/base:bookworm
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     privileged: true
     volumes:
       - ..:/workspaces/cine-mirror:delegated
@@ -13,3 +18,30 @@ services:
     env_file:
       - ${HOME}/.env.secrets
     command: sleep infinity
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_DB: data_collector
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d data_collector"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+  redis:
+    image: redis:7.4.2-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres-data:
