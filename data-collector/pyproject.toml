@@ -15,6 +15,7 @@ dependencies = [
     "faststream[redis]==0.6.7",
     "httpx==0.28.1",
     "polars==1.38.1",
+    "pytest==8.4.2",
     "python-dotenv==1.2.2",
     "sqlalchemy==2.0.48",
     "tenacity==9.1.4",
