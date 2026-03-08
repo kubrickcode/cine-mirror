@@ -11,7 +11,7 @@ TMDB 검증 스파이크를 위한 독립 데이터 수집 서비스입니다.
 ## 시작하기
 
 1. devcontainer를 rebuild 하여 `postgres`, `redis` 서비스를 함께 기동합니다.
-2. `data-collector/.env.example`을 `data-collector/.env`로 복사하고 `TMDB_API_KEY`를 채웁니다.
+2. devcontainer 안에서는 `DATABASE_URL`, `REDIS_URL`이 자동 주입됩니다. `data-collector/.env.example`을 `data-collector/.env`로 복사한 뒤 `TMDB_API_KEY`만 채우면 됩니다.
 3. `data-collector/` 디렉터리에서 의존성을 설치합니다.
 
 ```bash
