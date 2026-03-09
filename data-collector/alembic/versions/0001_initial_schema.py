@@ -40,7 +40,7 @@ def upgrade() -> None:
         sa.Column(
             "expires_at",
             sa.DateTime(timezone=True),
-            # Application sets this to enriched_at + CACHE_TTL_DAYS on every upsert.
+            # 애플리케이션이 upsert마다 enriched_at + CACHE_TTL_DAYS로 갱신한다.
             nullable=True,
         ),
         sa.Column("poster_path", sa.String(500), nullable=True),
@@ -68,9 +68,9 @@ def upgrade() -> None:
         sa.PrimaryKeyConstraint("director_id", "movie_id"),
     )
 
-    # Index on expires_at for cache refresh scheduler queries (WHERE expires_at < NOW() + 7d)
-    # Constraint: Partial indexes require IMMUTABLE predicates; NOW() is STABLE so a plain
-    # index is used instead — the WHERE clause is applied at query time.
+    # 캐시 갱신 스케줄러 쿼리(WHERE expires_at < NOW() + 7d)를 위한 expires_at 인덱스.
+    # 제약: Partial index는 IMMUTABLE 술어가 필요하나 NOW()는 STABLE이므로 일반 인덱스를
+    # 사용하고, WHERE 절은 쿼리 시점에 적용한다.
     op.create_index("idx_movies_expires_soon", "movie", ["expires_at"])
 
 

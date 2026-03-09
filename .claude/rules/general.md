@@ -52,6 +52,7 @@ Comments explaining WHAT code does become stale; code should be self-documenting
   - Anti-patterns: `// Intentionally sequential - parallel breaks idempotency`
 - Never: WHAT explanations, code narration, section dividers, commented-out code, etc.
 - If code needs a WHAT comment, fix the code instead (rename, extract function)
+- Language: 주석은 반드시 한글로 작성 (기술 용어, 코드 식별자는 영문 허용)
 
 ## Code Structure
 
