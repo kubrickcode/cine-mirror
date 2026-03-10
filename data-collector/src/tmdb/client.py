@@ -10,6 +10,8 @@ from tenacity import stop_after_attempt
 from tenacity.wait import wait_base
 from tenacity.wait import wait_exponential
 
+from src.tmdb.config import API_CONCURRENCY
+
 
 class InvalidAPIKeyError(Exception):
     pass
@@ -57,9 +59,7 @@ class TMDBClient:
     ) -> None:
         self.api_key = api_key
         self.base_url = base_url.rstrip("/")
-        # TMDB 호출은 아직 시간 기반 rate limiter가 없으므로 동시 fan-out을 4개로 제한해
-        # 단일 프로세스가 짧은 시간에 과도한 요청 폭주를 만들지 않도록 보수적으로 제어한다.
-        self._semaphore = asyncio.Semaphore(4)
+        self._semaphore = asyncio.Semaphore(API_CONCURRENCY)
         self._owns_client = client is None
         self._client = client or httpx.AsyncClient(
             base_url=self.base_url,

@@ -1,6 +1,7 @@
 """SQLAlchemy Core table definitions."""
 
 from sqlalchemy import (
+    Boolean,
     Column,
     DateTime,
     Float,
@@ -32,6 +33,8 @@ movie = Table(
     Column("id", UUID(as_uuid=True), primary_key=True, server_default=text("gen_random_uuid()")),
     Column("enriched_at", DateTime(timezone=True), nullable=True),
     Column("expires_at", DateTime(timezone=True), nullable=True),
+    Column("is_not_found", Boolean, nullable=False, server_default=text("FALSE")),
+    Column("korean_title", String(500), nullable=True),
     Column("poster_path", String(500), nullable=True),
     Column("tmdb_id", Integer, nullable=False),
     Column("tmdb_metadata", JSONB, nullable=True),
