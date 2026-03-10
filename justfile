@@ -38,6 +38,31 @@ lint target="all":
         ;;
     esac
 
+# data-collector 명령어 (dc- prefix)
+dc +args:
+    just --justfile {{ root_dir }}/data-collector/justfile {{ args }}
+
+dc-run:
+    just dc run
+
+dc-run-small:
+    just dc run-small
+
+dc-sync:
+    just dc sync
+
+dc-migrate:
+    just dc migrate
+
+dc-test *args:
+    just dc test {{ args }}
+
+dc-lint:
+    just dc lint
+
+dc-lint-fix:
+    just dc lint-fix
+
 sync-agents:
     bash scripts/sync-agents.sh
 

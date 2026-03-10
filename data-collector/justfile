@@ -1,0 +1,44 @@
+set dotenv-load := true
+
+# 서비스 기동 (스케줄러 + 이벤트 소비자)
+run:
+    uv run python -m src.main
+
+# 소규모 테스트 실행 (100건만 처리)
+run-small:
+    SEARCH_INDEX_SIZE=100 uv run python -m src.main
+
+# DB 마이그레이션 적용
+migrate:
+    uv run alembic upgrade head
+
+# 의존성 설치
+sync:
+    uv sync
+
+# 전체 테스트 실행
+test *args:
+    uv run pytest {{ args }}
+
+# 특정 모듈 테스트
+test-client:
+    uv run pytest src/tmdb/tests/test_client.py -v
+
+test-export:
+    uv run pytest src/tmdb/tests/test_export_pipeline.py -v
+
+test-enricher:
+    uv run pytest src/tmdb/tests/test_enricher.py -v
+
+test-events:
+    uv run pytest src/events/tests/test_consumer.py -v
+
+# 린트 + 포맷 검사
+lint:
+    uv tool run ruff check src
+    uv tool run ruff format --check src
+
+# 린트 자동 수정
+lint-fix:
+    uv tool run ruff check --fix src
+    uv tool run ruff format src

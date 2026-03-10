@@ -47,3 +47,34 @@ redis-cli -u "$REDIS_URL" ping
 cd data-collector
 uv sync
 ```
+
+## 서비스 기동
+
+```bash
+cd data-collector
+just run          # 스케줄러 + 이벤트 소비자 기동
+just run-small    # 소규모 테스트 (SEARCH_INDEX_SIZE=100)
+```
+
+기동 시 다음 로그가 출력되어야 합니다.
+
+```
+Scheduler started
+FastStream connected
+```
+
+## 주요 명령어
+
+| 명령어          | 설명                       |
+| --------------- | -------------------------- |
+| `just sync`     | 의존성 설치                |
+| `just migrate`  | DB 마이그레이션 적용       |
+| `just run`      | 서비스 기동                |
+| `just run-small`| 소규모(100건) 테스트 실행  |
+| `just test`     | 전체 테스트 실행           |
+| `just lint`     | 린트 + 포맷 검사           |
+| `just lint-fix` | 린트 자동 수정             |
+
+## ⚠️ 멀티 인스턴스 배포 주의
+
+`daily_export_job`과 `metadata_refresh_job`은 단일 인스턴스 실행을 가정합니다. 여러 인스턴스를 동시에 기동하면 동일 작업이 중복 실행됩니다. 멀티 인스턴스 환경에서는 Redis SETNX 또는 PostgreSQL advisory lock 등의 분산 락을 도입해야 합니다.
