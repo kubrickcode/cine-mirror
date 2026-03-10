@@ -50,3 +50,15 @@ validate-matching:
 # 매칭률 검증 테스트
 test-validate:
     uv run pytest scripts/tests/test_validate_matching.py -v
+
+# 마일스톤 0 통합 검증 (export → 매칭률 → 타이밍 → 이벤트 → final_report.md)
+validate:
+    uv run python scripts/run_validation.py
+
+# Daily Export만 실행
+pipeline-export:
+    uv run python scripts/run_pipeline.py --export-only
+
+# N건 enrichment 타이밍 측정 (기본 100건)
+pipeline-timing n="100":
+    uv run python scripts/run_pipeline.py --timing-sample {{ n }}
