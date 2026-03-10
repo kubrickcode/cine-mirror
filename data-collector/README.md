@@ -75,6 +75,48 @@ FastStream connected
 | `just lint`     | 린트 + 포맷 검사           |
 | `just lint-fix` | 린트 자동 수정             |
 
+## 검증 CLI
+
+### 통합 검증 (마일스톤 0)
+
+전체 검증 파이프라인을 한 번에 실행합니다.
+
+```bash
+cd data-collector
+uv run python scripts/run_validation.py
+```
+
+실행 순서:
+1. Daily Export → `movie_search_index` 적재
+2. 매칭률 측정 → `results/matching_accuracy_report.json`
+3. 100건 enrichment 타이밍 → `results/pipeline_timing_report.json`
+4. 이벤트 인프라 왕복 테스트
+5. 최종 판정 → `results/final_report.md`
+
+마일스톤 0 통과 기준: Top-1 매칭률 ≥ 80% **AND** 5만 건 추산 ≤ 12시간 **AND** 이벤트 왕복 성공
+
+### 개별 검증 CLI
+
+```bash
+# Daily Export만 실행
+uv run python scripts/run_pipeline.py --export-only
+
+# N건 enrichment 타이밍 측정
+uv run python scripts/run_pipeline.py --timing-sample 100
+
+# 매칭률만 측정
+uv run python scripts/validate_matching.py
+```
+
+### 검증 결과
+
+| 파일 | 설명 |
+|------|------|
+| `results/matching_accuracy_report.json` | Top-1/Top-5 매칭률 및 실패 유형 분류 |
+| `results/pipeline_timing_report.json`   | p50/p95 응답 시간 및 5만 건 추산     |
+| `results/final_report.md`               | 마일스톤 0 통과/실패 최종 판정       |
+| `results/license_summary.md`            | TMDB ToS 핵심 제약 정리              |
+
 ## ⚠️ 멀티 인스턴스 배포 주의
 
 `daily_export_job`과 `metadata_refresh_job`은 단일 인스턴스 실행을 가정합니다. 여러 인스턴스를 동시에 기동하면 동일 작업이 중복 실행됩니다. 멀티 인스턴스 환경에서는 Redis SETNX 또는 PostgreSQL advisory lock 등의 분산 락을 도입해야 합니다.

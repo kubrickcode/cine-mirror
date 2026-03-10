@@ -1370,7 +1370,7 @@
     "top5_accuracy": 0.875,
     "total": 80
   },
-  "generated_at": "2026-03-10T11:51:36.879872+00:00",
+  "generated_at": "2026-03-10T12:11:21.460420+00:00",
   "korean_subset": {
     "top1_accuracy": 0.944,
     "top5_accuracy": 0.967,
