@@ -132,7 +132,7 @@ class TestTMDBClient:
             request_count += 1
             return httpx.Response(status_code=401, json={"status_message": "Invalid API key"})
 
-        client = create_tmdb_client(handler=handler, api_key="bad-key")
+        client = create_tmdb_client(handler=handler, access_token="bad-token")
 
         with pytest.raises(InvalidAPIKeyError):
             run_async(client.get_movie(238))
@@ -188,13 +188,13 @@ class ConcurrencyState:
 def create_tmdb_client(
     *,
     handler: httpx.AsyncBaseTransport | object,
-    api_key: str = "test-key",
+    access_token: str = "test-token",
 ) -> TMDBClient:
     return TMDBClient(
-        api_key=api_key,
+        access_token=access_token,
         client=httpx.AsyncClient(
             base_url="https://example.test/3",
-            headers={"Authorization": f"Bearer {api_key}"},
+            headers={"Authorization": f"Bearer {access_token}"},
             transport=httpx.MockTransport(handler),
         ),
     )

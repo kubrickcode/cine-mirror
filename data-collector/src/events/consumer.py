@@ -16,8 +16,8 @@ from src.tmdb.client import TMDBClient
 from src.tmdb.enricher import enrich_movie
 
 # Constraint: 테스트에서는 _persist_enrichment가 mock되므로 빈 문자열 폴백이 안전하다.
-# 실 서비스에서는 기동 전 TMDB_API_KEY 환경 변수 설정이 필수다.
-_TMDB_API_KEY = os.environ.get("TMDB_API_KEY", "")
+# 실 서비스에서는 기동 전 TMDB_ACCESS_TOKEN 환경 변수 설정이 필수다.
+_TMDB_ACCESS_TOKEN = os.environ.get("TMDB_ACCESS_TOKEN", "")
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +40,7 @@ async def consume_enrich_request(event: EnrichRequestedEvent) -> None:
 async def _persist_enrichment(tmdb_id: int) -> None:
     # Side effect: TMDB API 호출 후 movie/director 테이블에 upsert한다.
     async with AsyncSessionFactory() as session:
-        async with TMDBClient(api_key=_TMDB_API_KEY) as client:
+        async with TMDBClient(access_token=_TMDB_ACCESS_TOKEN) as client:
             async with session.begin():
                 await enrich_movie(tmdb_id, client, session)
 

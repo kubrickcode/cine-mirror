@@ -1,0 +1,1384 @@
+{
+  "details": [
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 496243,
+      "user_title": "기생충"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 87516,
+      "user_title": "올드보이"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 51608,
+      "user_title": "아저씨"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 396535,
+      "user_title": "부산행"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 293670,
+      "user_title": "곡성"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 363579,
+      "user_title": "밀정"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 437068,
+      "user_title": "택시운전사"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 437103,
+      "user_title": "1987"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 313108,
+      "user_title": "국제시장"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 436391,
+      "user_title": "군함도"
+    },
+    {
+      "failure_type": "NOT_FOUND",
+      "is_top1_match": false,
+      "is_top5_match": false,
+      "language": "ko",
+      "top1_tmdb_id": null,
+      "user_title": "신과함께-죄와벌"
+    },
+    {
+      "failure_type": "NOT_FOUND",
+      "is_top1_match": false,
+      "is_top5_match": false,
+      "language": "ko",
+      "top1_tmdb_id": null,
+      "user_title": "신과함께-인과연"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 408360,
+      "user_title": "덕혜옹주"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 133200,
+      "user_title": "광해 왕이 된 남자"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 315439,
+      "user_title": "사도"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 291549,
+      "user_title": "암살"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 293413,
+      "user_title": "내부자들"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 70196,
+      "user_title": "베테랑"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 282631,
+      "user_title": "명량"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 124157,
+      "user_title": "도둑들"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 91078,
+      "user_title": "완득이"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 77117,
+      "user_title": "써니"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 107235,
+      "user_title": "건축학개론"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 435841,
+      "user_title": "강철비"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 517991,
+      "user_title": "공작"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 567646,
+      "user_title": "극한직업"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 128246,
+      "user_title": "늑대소년"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 81481,
+      "user_title": "도가니"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 453127,
+      "user_title": "청년경찰"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 437073,
+      "user_title": "특별시민"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": false,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 472006,
+      "user_title": "허스토리"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 453992,
+      "user_title": "박열"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 439928,
+      "user_title": "눈길"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 382336,
+      "user_title": "동주"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 26955,
+      "user_title": "오아시스"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 2015,
+      "user_title": "밀양"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 123377,
+      "user_title": "피에타"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 491584,
+      "user_title": "버닝"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 437081,
+      "user_title": "남한산성"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 429450,
+      "user_title": "판도라"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 272691,
+      "user_title": "해무"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 544814,
+      "user_title": "미쓰백"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 255709,
+      "user_title": "소원"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 253065,
+      "user_title": "수상한 그녀"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 11096,
+      "user_title": "숨바꼭질"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 11423,
+      "user_title": "살인의 추억"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 113,
+      "user_title": "봄 여름 가을 겨울 그리고 봄"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 1255,
+      "user_title": "괴물"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 45035,
+      "user_title": "왕의 남자"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 42190,
+      "user_title": "클래식"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 15859,
+      "user_title": "내 머리 속의 지우개"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": false,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 394110,
+      "user_title": "엽기적인 그녀"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 401133,
+      "user_title": "비밀은 없다"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 282058,
+      "user_title": "두근두근 내 인생"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 591322,
+      "user_title": "어린 의뢰인"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 564863,
+      "user_title": "말모이"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 378348,
+      "user_title": "검사외전"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 4550,
+      "user_title": "친절한 금자씨"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 4552,
+      "user_title": "장화 홍련"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 40171,
+      "user_title": "전우치"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 13855,
+      "user_title": "추격자"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 57361,
+      "user_title": "황해"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 408620,
+      "user_title": "아수라"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 363093,
+      "user_title": "대호"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 79553,
+      "user_title": "고지전"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 79374,
+      "user_title": "블라인드"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 74092,
+      "user_title": "파수꾼"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 33196,
+      "user_title": "해운대"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 158445,
+      "user_title": "7번방의 선물"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 165213,
+      "user_title": "신세계"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 269494,
+      "user_title": "끝까지 간다"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 548352,
+      "user_title": "완벽한 타인"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 108972,
+      "user_title": "화차"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 518963,
+      "user_title": "독전"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 497370,
+      "user_title": "마약왕"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 535389,
+      "user_title": "안시성"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 573791,
+      "user_title": "봉오동 전투"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 586048,
+      "user_title": "82년생 김지영"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 242452,
+      "user_title": "변호인"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 110415,
+      "user_title": "설국열차"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 209764,
+      "user_title": "더 테러 라이브"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 220176,
+      "user_title": "관상"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 479718,
+      "user_title": "범죄도시"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 919207,
+      "user_title": "서울의 봄"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 344476,
+      "user_title": "극비수사"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 374111,
+      "user_title": "히말라야"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 585831,
+      "user_title": "나쁜 녀석들: 더 무비"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 434119,
+      "user_title": "공조"
+    },
+    {
+      "failure_type": "TITLE_MISMATCH",
+      "is_top1_match": false,
+      "is_top5_match": false,
+      "language": "ko",
+      "top1_tmdb_id": 1158996,
+      "user_title": "택배기사"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "ko",
+      "top1_tmdb_id": 654739,
+      "user_title": "발신제한"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 155,
+      "user_title": "The Dark Knight"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 27205,
+      "user_title": "Inception"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 157336,
+      "user_title": "Interstellar"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 24428,
+      "user_title": "The Avengers"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 1726,
+      "user_title": "Iron Man"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 557,
+      "user_title": "Spider-Man"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 603,
+      "user_title": "The Matrix"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 238,
+      "user_title": "The Godfather"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 680,
+      "user_title": "Pulp Fiction"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 550,
+      "user_title": "Fight Club"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 13,
+      "user_title": "Forrest Gump"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 278,
+      "user_title": "The Shawshank Redemption"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 424,
+      "user_title": "Schindler's List"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 98,
+      "user_title": "Gladiator"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 597,
+      "user_title": "Titanic"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 19995,
+      "user_title": "Avatar"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 329,
+      "user_title": "Jurassic Park"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 771,
+      "user_title": "Home Alone"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 8587,
+      "user_title": "The Lion King"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 862,
+      "user_title": "Toy Story"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 12,
+      "user_title": "Finding Nemo"
+    },
+    {
+      "failure_type": "TITLE_MISMATCH",
+      "is_top1_match": false,
+      "is_top5_match": false,
+      "language": "en",
+      "top1_tmdb_id": 1398911,
+      "user_title": "WALL-E"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 14160,
+      "user_title": "Up"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 109445,
+      "user_title": "Frozen"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 313369,
+      "user_title": "La La Land"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 244786,
+      "user_title": "Whiplash"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 374720,
+      "user_title": "Dunkirk"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 530915,
+      "user_title": "1917"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 475557,
+      "user_title": "Joker"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 424694,
+      "user_title": "Bohemian Rhapsody"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 284054,
+      "user_title": "Black Panther"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 284052,
+      "user_title": "Doctor Strange"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 10195,
+      "user_title": "Thor"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 118340,
+      "user_title": "Guardians of the Galaxy"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 299534,
+      "user_title": "Avengers: Endgame"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 299536,
+      "user_title": "Avengers: Infinity War"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 1771,
+      "user_title": "Captain America: The First Avenger"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 49026,
+      "user_title": "The Dark Knight Rises"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 272,
+      "user_title": "Batman Begins"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 49521,
+      "user_title": "Man of Steel"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 1858,
+      "user_title": "Transformers"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 22,
+      "user_title": "Pirates of the Caribbean: The Curse of the Black Pearl"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 954,
+      "user_title": "Mission: Impossible"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 245891,
+      "user_title": "John Wick"
+    },
+    {
+      "failure_type": "TITLE_MISMATCH",
+      "is_top1_match": false,
+      "is_top5_match": false,
+      "language": "en",
+      "top1_tmdb_id": 24,
+      "user_title": "Kill Bill: Volume 1"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 16869,
+      "user_title": "Inglourious Basterds"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 68718,
+      "user_title": "Django Unchained"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 37799,
+      "user_title": "The Social Network"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 106646,
+      "user_title": "The Wolf of Wall Street"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 286217,
+      "user_title": "The Martian"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 49047,
+      "user_title": "Gravity"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 329865,
+      "user_title": "Arrival"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 335984,
+      "user_title": "Blade Runner 2049"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 419430,
+      "user_title": "Get Out"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 346364,
+      "user_title": "It"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 138843,
+      "user_title": "The Conjuring"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 120467,
+      "user_title": "The Grand Budapest Hotel"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 376867,
+      "user_title": "Moonlight"
+    },
+    {
+      "failure_type": "TITLE_MISMATCH",
+      "is_top1_match": false,
+      "is_top5_match": false,
+      "language": "en",
+      "top1_tmdb_id": 698296,
+      "user_title": "Spirited Away"
+    },
+    {
+      "failure_type": "TITLE_MISMATCH",
+      "is_top1_match": false,
+      "is_top5_match": false,
+      "language": "en",
+      "top1_tmdb_id": 1302690,
+      "user_title": "Princess Mononoke"
+    },
+    {
+      "failure_type": "TITLE_MISMATCH",
+      "is_top1_match": false,
+      "is_top5_match": false,
+      "language": "en",
+      "top1_tmdb_id": 8392,
+      "user_title": "My Neighbor Totoro"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": false,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 682012,
+      "user_title": "Amélie"
+    },
+    {
+      "failure_type": "TITLE_MISMATCH",
+      "is_top1_match": false,
+      "is_top5_match": false,
+      "language": "en",
+      "top1_tmdb_id": 1566942,
+      "user_title": "City of God"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 48311,
+      "user_title": "Parasite"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 87516,
+      "user_title": "Oldboy"
+    },
+    {
+      "failure_type": "TITLE_MISMATCH",
+      "is_top1_match": false,
+      "is_top5_match": false,
+      "language": "en",
+      "top1_tmdb_id": 396535,
+      "user_title": "Train to Busan"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 120,
+      "user_title": "The Lord of the Rings: The Fellowship of the Ring"
+    },
+    {
+      "failure_type": "TITLE_MISMATCH",
+      "is_top1_match": false,
+      "is_top5_match": false,
+      "language": "en",
+      "top1_tmdb_id": 671,
+      "user_title": "Harry Potter and the Sorcerer's Stone"
+    },
+    {
+      "failure_type": "TITLE_MISMATCH",
+      "is_top1_match": false,
+      "is_top5_match": false,
+      "language": "en",
+      "top1_tmdb_id": 11,
+      "user_title": "Star Wars: A New Hope"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 76341,
+      "user_title": "Mad Max: Fury Road"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 281957,
+      "user_title": "The Revenant"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 332562,
+      "user_title": "A Star Is Born"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 426426,
+      "user_title": "Roma"
+    },
+    {
+      "failure_type": "TITLE_MISMATCH",
+      "is_top1_match": false,
+      "is_top5_match": false,
+      "language": "en",
+      "top1_tmdb_id": 1417,
+      "user_title": "Pan's Labyrinth"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 458723,
+      "user_title": "Us"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 435092,
+      "user_title": "Birdman"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 2501,
+      "user_title": "The Bourne Identity"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 102899,
+      "user_title": "Ant-Man"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 299537,
+      "user_title": "Captain Marvel"
+    },
+    {
+      "failure_type": null,
+      "is_top1_match": true,
+      "is_top5_match": true,
+      "language": "en",
+      "top1_tmdb_id": 354912,
+      "user_title": "Coco"
+    }
+  ],
+  "failures_by_type": {
+    "NOT_FOUND": 2,
+    "TITLE_MISMATCH": 11
+  },
+  "foreign_subset": {
+    "top1_accuracy": 0.863,
+    "top5_accuracy": 0.875,
+    "total": 80
+  },
+  "generated_at": "2026-03-10T11:51:36.879872+00:00",
+  "korean_subset": {
+    "top1_accuracy": 0.944,
+    "top5_accuracy": 0.967,
+    "total": 90
+  },
+  "top1_accuracy": 0.906,
+  "top1_hits": 154,
+  "top5_accuracy": 0.924,
+  "top5_hits": 157,
+  "total": 170
+}

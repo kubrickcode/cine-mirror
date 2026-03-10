@@ -35,10 +35,18 @@ test-events:
 
 # 린트 + 포맷 검사
 lint:
-    uv tool run ruff check src
-    uv tool run ruff format --check src
+    uv tool run ruff check src scripts
+    uv tool run ruff format --check src scripts
 
 # 린트 자동 수정
 lint-fix:
-    uv tool run ruff check --fix src
-    uv tool run ruff format src
+    uv tool run ruff check --fix src scripts
+    uv tool run ruff format src scripts
+
+# 매칭률 검증 실행
+validate-matching:
+    uv run python scripts/validate_matching.py
+
+# 매칭률 검증 테스트
+test-validate:
+    uv run pytest scripts/tests/test_validate_matching.py -v

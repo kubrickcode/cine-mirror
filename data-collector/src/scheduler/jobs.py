@@ -12,8 +12,8 @@ from src.tmdb.config import SEARCH_INDEX_SIZE
 from src.tmdb.enricher import enrich_batch
 from src.tmdb.export_pipeline import download_daily_export, filter_top_n, upsert_search_index
 
-# Constraint: 실 서비스에서는 기동 전 TMDB_API_KEY 환경 변수 설정이 필수다.
-_TMDB_API_KEY = os.environ.get("TMDB_API_KEY", "")
+# Constraint: 실 서비스에서는 기동 전 TMDB_ACCESS_TOKEN 환경 변수 설정이 필수다.
+_TMDB_ACCESS_TOKEN = os.environ.get("TMDB_ACCESS_TOKEN", "")
 
 _REFRESH_LOOKAHEAD_DAYS = 7
 
@@ -54,7 +54,7 @@ async def metadata_refresh_job() -> None:
             return
 
         logger.info("metadata_refresh_job: %d건 갱신 대상", len(tmdb_ids))
-        async with TMDBClient(api_key=_TMDB_API_KEY) as client:
+        async with TMDBClient(access_token=_TMDB_ACCESS_TOKEN) as client:
             async with AsyncSessionFactory() as session, session.begin():
                 await enrich_batch(tmdb_ids, client, session)
         logger.info("metadata_refresh_job 완료: %d건 갱신", len(tmdb_ids))

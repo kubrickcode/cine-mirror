@@ -53,11 +53,11 @@ class TMDBClient:
     def __init__(
         self,
         *,
-        api_key: str,
+        access_token: str,
         base_url: str = "https://api.themoviedb.org/3",
         client: httpx.AsyncClient | None = None,
     ) -> None:
-        self.api_key = api_key
+        self.access_token = access_token
         self.base_url = base_url.rstrip("/")
         self._semaphore = asyncio.Semaphore(API_CONCURRENCY)
         self._owns_client = client is None
@@ -65,7 +65,7 @@ class TMDBClient:
             base_url=self.base_url,
             headers={
                 "Accept": "application/json",
-                "Authorization": f"Bearer {self.api_key}",
+                "Authorization": f"Bearer {self.access_token}",
             },
         )
 
