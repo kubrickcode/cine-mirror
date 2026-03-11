@@ -1,0 +1,27 @@
+set dotenv-load := true
+
+# 의존성 설치
+sync:
+    uv sync
+
+# DB 마이그레이션 적용
+migrate:
+    uv run alembic upgrade head
+
+# 서비스 기동
+run:
+    uv run python -m src.main
+
+# 전체 테스트 실행
+test *args:
+    uv run pytest {{ args }}
+
+# 린트 + 포맷 검사
+lint:
+    uv tool run ruff check src
+    uv tool run ruff format --check src
+
+# 린트 자동 수정
+lint-fix:
+    uv tool run ruff check --fix src
+    uv tool run ruff format src

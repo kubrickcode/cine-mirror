@@ -63,6 +63,28 @@ dc-lint:
 dc-lint-fix:
     just dc lint-fix
 
+# core-film-journal 명령어 (cfj- prefix)
+cfj +args:
+    just --justfile {{ root_dir }}/core-film-journal/justfile {{ args }}
+
+cfj-sync:
+    just cfj sync
+
+cfj-migrate:
+    just cfj migrate
+
+cfj-run:
+    just cfj run
+
+cfj-test *args:
+    just cfj test {{ args }}
+
+cfj-lint:
+    just cfj lint
+
+cfj-lint-fix:
+    just cfj lint-fix
+
 sync-agents:
     bash scripts/sync-agents.sh
 

@@ -14,3 +14,18 @@ class MovieEnrichedEvent(BaseModel):
     poster_path: str | None
     title: str
     tmdb_id: int
+
+
+class SearchIndexEntry(BaseModel):
+    korean_title: str | None
+    original_title: str
+    popularity: float
+    tmdb_id: int
+
+
+class SearchIndexSyncedPayload(BaseModel):
+    batch_index: int
+    batch_total: int
+    entries: list[SearchIndexEntry]
+    schema_version: int = 1
+    synced_at: str

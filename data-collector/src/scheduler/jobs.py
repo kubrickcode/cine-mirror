@@ -1,12 +1,20 @@
 """APScheduler 작업 정의 — Daily Export 파이프라인 및 만료 캐시 갱신."""
 
+from __future__ import annotations
+
 import logging
 import os
 from datetime import date, datetime, timedelta, timezone
+from typing import TYPE_CHECKING
 
 from sqlalchemy import text
 
+if TYPE_CHECKING:
+    import polars as pl
+
 from src.db.connection import AsyncSessionFactory
+from src.events.publisher import publish_search_index_synced
+from src.events.schemas import SearchIndexEntry
 from src.tmdb.client import TMDBClient
 from src.tmdb.config import SEARCH_INDEX_SIZE
 from src.tmdb.enricher import enrich_batch
@@ -33,7 +41,10 @@ async def daily_export_job() -> None:
         df = filter_top_n(str(ndjson_path), n=SEARCH_INDEX_SIZE)
         async with AsyncSessionFactory() as session, session.begin():
             await upsert_search_index(df, session)
-        logger.info("daily_export_job 완료: %d건 upsert", len(df))
+
+        entries = _build_search_index_entries(df)
+        await publish_search_index_synced(entries)
+        logger.info("daily_export_job 완료: %d건 upsert, search_index.synced 이벤트 발행", len(df))
     except Exception:
         logger.exception("daily_export_job 실패: date=%s", target_date)
         raise
@@ -61,6 +72,21 @@ async def metadata_refresh_job() -> None:
     except Exception:
         logger.exception("metadata_refresh_job 실패")
         raise
+
+
+def _build_search_index_entries(df: "pl.DataFrame") -> list[SearchIndexEntry]:
+    # Constraint: TMDB Daily Export는 원제(original_title)만 제공하므로 korean_title은 항상 None이다.
+    # 한국어 제목은 movie.enriched 이벤트를 통해 movie_cache에서 별도로 복제된다.
+    rows = df.select("id", "original_title", "popularity").to_dicts()
+    return [
+        SearchIndexEntry(
+            korean_title=None,
+            original_title=row["original_title"],
+            popularity=row["popularity"],
+            tmdb_id=row["id"],
+        )
+        for row in rows
+    ]
 
 
 async def _fetch_expiring_tmdb_ids(threshold: datetime) -> list[int]:
