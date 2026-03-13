@@ -3,15 +3,26 @@
 from pydantic import BaseModel
 
 
+class DirectorInfo(BaseModel):
+    name: str
+    tmdb_person_id: int
+
+
 class EnrichRequestedEvent(BaseModel):
     requested_by: str
     tmdb_id: int
 
 
 class MovieEnrichedEvent(BaseModel):
-    director: str | None
+    """movie.enriched 이벤트 페이로드.
+
+    대응 구독자: core-film-journal/src/events/schemas.py MovieEnrichedPayload
+    """
+
+    directors: list[DirectorInfo]
     korean_title: str | None
     poster_path: str | None
+    schema_version: int = 1
     title: str
     tmdb_id: int
 

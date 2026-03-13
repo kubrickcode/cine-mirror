@@ -67,3 +67,33 @@ class TestSearchIndexSyncedContract:
                 f"data-collector: {dc_field.annotation}, "
                 f"core-film-journal: {cfj_field.annotation}"
             )
+
+
+class TestMovieEnrichedContract:
+    """movie.enriched 이벤트 스키마 계약."""
+
+    def test_director_info_fields_match(self) -> None:
+        """DirectorInfo 필드가 두 서비스에서 동일."""
+        dc = _load_dc_schemas()
+        from src.events.schemas import DirectorInfo as CfjDirectorInfo
+
+        dc_fields = set(dc.DirectorInfo.model_fields.keys())
+        cfj_fields = set(CfjDirectorInfo.model_fields.keys())
+
+        assert dc_fields == cfj_fields, (
+            f"DirectorInfo 필드 불일치 — "
+            f"data-collector: {dc_fields}, core-film-journal: {cfj_fields}"
+        )
+
+    def test_movie_enriched_core_fields_present(self) -> None:
+        """MovieEnrichedEvent 핵심 필드가 data-collector에 존재."""
+        dc = _load_dc_schemas()
+        from src.events.schemas import MovieEnrichedPayload
+
+        cfj_fields = set(MovieEnrichedPayload.model_fields.keys())
+        dc_fields = set(dc.MovieEnrichedEvent.model_fields.keys())
+
+        assert cfj_fields == dc_fields, (
+            f"MovieEnriched 필드 불일치 — "
+            f"data-collector: {dc_fields}, core-film-journal: {cfj_fields}"
+        )

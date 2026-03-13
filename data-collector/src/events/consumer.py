@@ -11,7 +11,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.db.connection import AsyncSessionFactory
 from src.events.broker import broker
 from src.events.publisher import publish_movie_enriched
-from src.events.schemas import EnrichRequestedEvent, MovieEnrichedEvent
+from src.events.schemas import DirectorInfo, EnrichRequestedEvent, MovieEnrichedEvent
 from src.tmdb.client import TMDBClient
 from src.tmdb.enricher import enrich_movie
 
@@ -60,20 +60,29 @@ async def _query_movie_enriched_event(
                 m.korean_title,
                 m.poster_path,
                 m.tmdb_metadata->>'title' AS title,
-                d.name AS director
+                COALESCE(
+                    json_agg(
+                        json_build_object('tmdb_person_id', d.tmdb_person_id, 'name', d.name)
+                    ) FILTER (WHERE d.id IS NOT NULL),
+                    '[]'::json
+                ) AS directors
             FROM movie m
             LEFT JOIN movie_director md ON md.movie_id = m.id
             LEFT JOIN director d ON d.id = md.director_id
             WHERE m.tmdb_id = :tmdb_id AND m.is_not_found = FALSE
-            LIMIT 1
+            GROUP BY m.korean_title, m.poster_path, m.tmdb_metadata
         """),
         {"tmdb_id": tmdb_id},
     )
     row = result.one_or_none()
     if row is None or row.title is None:
         return None
+    directors = [
+        DirectorInfo(tmdb_person_id=d["tmdb_person_id"], name=d["name"])
+        for d in (row.directors or [])
+    ]
     return MovieEnrichedEvent(
-        director=row.director,
+        directors=directors,
         korean_title=row.korean_title,
         poster_path=row.poster_path,
         title=row.title,

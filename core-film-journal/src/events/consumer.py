@@ -7,9 +7,18 @@ from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.db.connection import AsyncSessionFactory
-from src.db.models import movie_search_cache
+from src.db.models import (
+    director_cache,
+    movie_cache,
+    movie_director_cache,
+    movie_search_cache,
+)
 from src.events.broker import broker
-from src.events.schemas import SearchIndexEntry, SearchIndexSyncedPayload
+from src.events.schemas import (
+    MovieEnrichedPayload,
+    SearchIndexEntry,
+    SearchIndexSyncedPayload,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -48,6 +57,64 @@ async def upsert_search_index(
     await session.commit()
 
 
+async def upsert_movie_enriched(
+    session: AsyncSession,
+    payload: MovieEnrichedPayload,
+) -> None:
+    """movie_cache, director_cache, movie_director_cache UPSERT."""
+    now = datetime.now(UTC)
+
+    movie_stmt = insert(movie_cache).values(
+        enriched_at=now,
+        korean_title=payload.korean_title,
+        original_title=payload.title,
+        poster_path=payload.poster_path,
+        synced_at=now,
+        tmdb_id=payload.tmdb_id,
+    )
+    movie_stmt = movie_stmt.on_conflict_do_update(
+        index_elements=["tmdb_id"],
+        set_={
+            "enriched_at": movie_stmt.excluded.enriched_at,
+            "korean_title": movie_stmt.excluded.korean_title,
+            "original_title": movie_stmt.excluded.original_title,
+            "poster_path": movie_stmt.excluded.poster_path,
+        },
+    )
+    await session.execute(movie_stmt)
+
+    if payload.directors:
+        director_stmt = insert(director_cache).values(
+            [
+                {
+                    "name": d.name,
+                    "synced_at": now,
+                    "tmdb_person_id": d.tmdb_person_id,
+                }
+                for d in payload.directors
+            ]
+        )
+        director_stmt = director_stmt.on_conflict_do_update(
+            index_elements=["tmdb_person_id"],
+            set_={"name": director_stmt.excluded.name},
+        )
+        await session.execute(director_stmt)
+
+        link_stmt = insert(movie_director_cache).values(
+            [
+                {
+                    "director_tmdb_person_id": d.tmdb_person_id,
+                    "movie_tmdb_id": payload.tmdb_id,
+                }
+                for d in payload.directors
+            ]
+        )
+        link_stmt = link_stmt.on_conflict_do_nothing()
+        await session.execute(link_stmt)
+
+    await session.commit()
+
+
 @broker.subscriber("search_index.synced")
 async def on_search_index_synced(payload: SearchIndexSyncedPayload) -> None:
     """search_index.synced 이벤트 수신 → movie_search_cache UPSERT."""
@@ -64,5 +131,20 @@ async def on_search_index_synced(payload: SearchIndexSyncedPayload) -> None:
                 "synced_at": payload.synced_at.isoformat(),
                 "entry_count": len(payload.entries),
             },
+        )
+        raise
+
+
+@broker.subscriber("movie.enriched")
+async def on_movie_enriched(payload: MovieEnrichedPayload) -> None:
+    """movie.enriched 이벤트 수신 → movie_cache, director_cache UPSERT."""
+    try:
+        async with AsyncSessionFactory() as session:
+            await upsert_movie_enriched(session, payload)
+    except Exception as exc:
+        logger.error(
+            "movie.enriched UPSERT 실패 — tmdb_id=%d",
+            payload.tmdb_id,
+            exc_info=exc,
         )
         raise

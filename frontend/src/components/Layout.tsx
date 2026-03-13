@@ -14,6 +14,12 @@ export function Layout() {
           >
             영화 검색
           </Link>
+          <Link
+            to="/journal"
+            className="text-sm text-gray-600 hover:text-gray-900"
+          >
+            내 저널
+          </Link>
         </div>
       </nav>
       <main className="max-w-3xl mx-auto px-4 py-6">

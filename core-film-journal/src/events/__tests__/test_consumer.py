@@ -1,9 +1,9 @@
-"""search_index.synced 이벤트 소비자 단위 테스트."""
+"""이벤트 소비자 단위 테스트."""
 
 from unittest.mock import AsyncMock
 
-from src.events.consumer import upsert_search_index
-from src.events.schemas import SearchIndexEntry
+from src.events.consumer import upsert_movie_enriched, upsert_search_index
+from src.events.schemas import DirectorInfo, MovieEnrichedPayload, SearchIndexEntry
 
 
 class TestUpsertSearchIndex:
@@ -70,3 +70,59 @@ class TestUpsertSearchIndex:
         await upsert_search_index(session, entries)
 
         session.execute.assert_called_once()
+
+
+class TestUpsertMovieEnriched:
+    """movie.enriched 이벤트 UPSERT 로직."""
+
+    async def test_upserts_movie_cache(self) -> None:
+        """movie_cache UPSERT가 실행됨."""
+        session = AsyncMock()
+        payload = MovieEnrichedPayload(
+            directors=[],
+            korean_title="기생충",
+            poster_path="/abc.jpg",
+            title="Parasite",
+            tmdb_id=496243,
+        )
+
+        await upsert_movie_enriched(session, payload)
+
+        # movie_cache UPSERT 1회 + commit 1회
+        assert session.execute.call_count == 1
+        session.commit.assert_called_once()
+
+    async def test_upserts_directors_when_present(self) -> None:
+        """directors 있을 때 director_cache + movie_director_cache UPSERT 추가 실행."""
+        session = AsyncMock()
+        payload = MovieEnrichedPayload(
+            directors=[
+                DirectorInfo(name="봉준호", tmdb_person_id=21684),
+                DirectorInfo(name="박찬욱", tmdb_person_id=10000),
+            ],
+            korean_title="기생충",
+            poster_path="/abc.jpg",
+            title="Parasite",
+            tmdb_id=496243,
+        )
+
+        await upsert_movie_enriched(session, payload)
+
+        # movie_cache + director_cache + movie_director_cache = 3회
+        assert session.execute.call_count == 3
+        session.commit.assert_called_once()
+
+    async def test_skips_director_upsert_when_no_directors(self) -> None:
+        """directors 없을 때 director_cache UPSERT 스킵."""
+        session = AsyncMock()
+        payload = MovieEnrichedPayload(
+            directors=[],
+            korean_title=None,
+            poster_path=None,
+            title="Unknown Film",
+            tmdb_id=99999,
+        )
+
+        await upsert_movie_enriched(session, payload)
+
+        assert session.execute.call_count == 1
