@@ -28,6 +28,7 @@ export interface JournalEntryItem {
 }
 
 export interface JournalEntryDetail extends Omit<JournalEntryItem, "movie"> {
+  allowed_transitions: string[];
   movie: MovieDetailInfo | null;
 }
 
@@ -56,4 +57,21 @@ export async function listJournalEntries(params?: {
 
 export async function getJournalEntry(id: string): Promise<JournalEntryDetail> {
   return api.get(`journal/${id}`).json<JournalEntryDetail>();
+}
+
+export interface PatchJournalRequest {
+  rating?: number | null;
+  short_review?: string | null;
+  status?: string;
+}
+
+export async function patchJournalEntry(
+  id: string,
+  data: PatchJournalRequest,
+): Promise<JournalEntryDetail> {
+  return api.patch(`journal/${id}`, { json: data }).json<JournalEntryDetail>();
+}
+
+export async function deleteJournalEntry(id: string): Promise<void> {
+  await api.delete(`journal/${id}`);
 }

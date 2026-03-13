@@ -345,6 +345,8 @@ class TestGetJournalEntry:
         assert data["id"] == str(_ENTRY_ID)
         assert data["movie"]["korean_title"] == "기생충"
         assert data["movie"]["directors"][0]["name"] == "봉준호"
+        # allowed_transitions은 서버가 권위적 소스
+        assert set(data["allowed_transitions"]) == {"prioritized", "watched"}
 
     async def test_not_found_returns_404(self) -> None:
         """존재하지 않는 항목 조회 시 404 반환."""
@@ -390,3 +392,245 @@ class TestGetJournalEntry:
 
         assert response.status_code == 200
         assert response.json()["movie"] is None
+
+
+class TestPatchJournalEntry:
+    """PATCH /api/journal/{id}."""
+
+    def _make_entry_row(self, status: str = "discovered") -> dict:
+        return {
+            "created_at": _NOW,
+            "id": _ENTRY_ID,
+            "rating": None,
+            "short_review": None,
+            "status": status,
+            "tmdb_id": 496243,
+            "updated_at": _NOW,
+            "movie_korean_title": "기생충",
+            "movie_original_title": "Parasite",
+            "movie_poster_path": "/abc.jpg",
+            "movie_tmdb_id": 496243,
+        }
+
+    async def test_status_transition_succeeds(self) -> None:
+        """유효한 상태 전이 시 200 반환."""
+        session = _make_mock_session()
+        # 1. 현재 상태 조회
+        fetch_result = MagicMock()
+        fetch_result.mappings.return_value.one_or_none.return_value = (
+            self._make_entry_row("discovered")
+        )
+        # 2. UPDATE (반환값 없음)
+        update_result = MagicMock()
+        # 3. 업데이트 후 재조회
+        refetch_result = MagicMock()
+        refetch_result.mappings.return_value.one_or_none.return_value = (
+            self._make_entry_row("prioritized")
+        )
+        # 4. 감독 조회
+        director_result = MagicMock()
+        director_result.mappings.return_value.all.return_value = []
+        session.execute.side_effect = [
+            fetch_result,
+            update_result,
+            refetch_result,
+            director_result,
+        ]
+        _override_deps(session)
+
+        async with AsyncClient(
+            transport=ASGITransport(app=app), base_url="http://test"
+        ) as client:
+            response = await client.patch(
+                f"/api/journal/{_ENTRY_ID}", json={"status": "prioritized"}
+            )
+
+        assert response.status_code == 200
+        assert response.json()["status"] == "prioritized"
+
+    async def test_invalid_status_transition_returns_422(self) -> None:
+        """무효한 상태 전이 시 422 + 허용 전이 목록 반환."""
+        session = _make_mock_session()
+        fetch_result = MagicMock()
+        fetch_result.mappings.return_value.one_or_none.return_value = (
+            self._make_entry_row("watched")
+        )
+        session.execute.return_value = fetch_result
+        _override_deps(session)
+
+        async with AsyncClient(
+            transport=ASGITransport(app=app), base_url="http://test"
+        ) as client:
+            response = await client.patch(
+                f"/api/journal/{_ENTRY_ID}", json={"status": "discovered"}
+            )
+
+        assert response.status_code == 422
+        data = response.json()
+        assert "allowed_transitions" in data["detail"]
+
+    async def test_valid_rating_update(self) -> None:
+        """유효한 평점 업데이트 시 200 반환."""
+        session = _make_mock_session()
+        # 1. 현재 상태 조회
+        fetch_result = MagicMock()
+        fetch_result.mappings.return_value.one_or_none.return_value = (
+            self._make_entry_row("watched")
+        )
+        # 2. UPDATE
+        update_result = MagicMock()
+        # 3. 재조회 (rating 반영)
+        updated_row = self._make_entry_row("watched")
+        updated_row["rating"] = 3.5
+        refetch_result = MagicMock()
+        refetch_result.mappings.return_value.one_or_none.return_value = updated_row
+        # 4. 감독 조회
+        director_result = MagicMock()
+        director_result.mappings.return_value.all.return_value = []
+        session.execute.side_effect = [
+            fetch_result,
+            update_result,
+            refetch_result,
+            director_result,
+        ]
+        _override_deps(session)
+
+        async with AsyncClient(
+            transport=ASGITransport(app=app), base_url="http://test"
+        ) as client:
+            response = await client.patch(
+                f"/api/journal/{_ENTRY_ID}", json={"rating": 3.5}
+            )
+
+        assert response.status_code == 200
+        assert response.json()["rating"] == 3.5
+
+    async def test_invalid_rating_returns_422(self) -> None:
+        """유효하지 않은 평점(0.3) 시 422 반환."""
+        session = _make_mock_session()
+        fetch_result = MagicMock()
+        fetch_result.mappings.return_value.one_or_none.return_value = (
+            self._make_entry_row("watched")
+        )
+        session.execute.return_value = fetch_result
+        _override_deps(session)
+
+        async with AsyncClient(
+            transport=ASGITransport(app=app), base_url="http://test"
+        ) as client:
+            response = await client.patch(
+                f"/api/journal/{_ENTRY_ID}", json={"rating": 0.3}
+            )
+
+        assert response.status_code == 422
+
+    async def test_not_found_returns_404(self) -> None:
+        """존재하지 않는 항목 PATCH 시 404 반환."""
+        session = _make_mock_session()
+        result = MagicMock()
+        result.mappings.return_value.one_or_none.return_value = None
+        session.execute.return_value = result
+        _override_deps(session)
+
+        async with AsyncClient(
+            transport=ASGITransport(app=app), base_url="http://test"
+        ) as client:
+            response = await client.patch(
+                f"/api/journal/{_ENTRY_ID}", json={"status": "prioritized"}
+            )
+
+        assert response.status_code == 404
+
+    async def test_status_null_returns_422(self) -> None:
+        """status를 명시적으로 null로 보내면 422 반환."""
+        session = _make_mock_session()
+        fetch_result = MagicMock()
+        fetch_result.mappings.return_value.one_or_none.return_value = (
+            self._make_entry_row("discovered")
+        )
+        session.execute.return_value = fetch_result
+        _override_deps(session)
+
+        async with AsyncClient(
+            transport=ASGITransport(app=app), base_url="http://test"
+        ) as client:
+            response = await client.patch(
+                f"/api/journal/{_ENTRY_ID}", json={"status": None}
+            )
+
+        assert response.status_code == 422
+
+    async def test_short_review_update(self) -> None:
+        """한줄평 업데이트 시 200 반환."""
+        session = _make_mock_session()
+        fetch_result = MagicMock()
+        fetch_result.mappings.return_value.one_or_none.return_value = (
+            self._make_entry_row("discovered")
+        )
+        update_result = MagicMock()
+        updated_row = self._make_entry_row("discovered")
+        updated_row["short_review"] = "정말 재미있는 영화"
+        refetch_result = MagicMock()
+        refetch_result.mappings.return_value.one_or_none.return_value = updated_row
+        director_result = MagicMock()
+        director_result.mappings.return_value.all.return_value = []
+        session.execute.side_effect = [
+            fetch_result,
+            update_result,
+            refetch_result,
+            director_result,
+        ]
+        _override_deps(session)
+
+        async with AsyncClient(
+            transport=ASGITransport(app=app), base_url="http://test"
+        ) as client:
+            response = await client.patch(
+                f"/api/journal/{_ENTRY_ID}",
+                json={"short_review": "정말 재미있는 영화"},
+            )
+
+        assert response.status_code == 200
+        assert response.json()["short_review"] == "정말 재미있는 영화"
+
+
+class TestDeleteJournalEntry:
+    """DELETE /api/journal/{id}."""
+
+    async def test_delete_returns_204(self) -> None:
+        """저널 항목 삭제 시 204 반환."""
+        session = _make_mock_session()
+        fetch_result = MagicMock()
+        fetch_result.mappings.return_value.one_or_none.return_value = {
+            "id": _ENTRY_ID,
+        }
+        review_delete_result = MagicMock()
+        entry_delete_result = MagicMock()
+        session.execute.side_effect = [
+            fetch_result,
+            review_delete_result,
+            entry_delete_result,
+        ]
+        _override_deps(session)
+
+        async with AsyncClient(
+            transport=ASGITransport(app=app), base_url="http://test"
+        ) as client:
+            response = await client.delete(f"/api/journal/{_ENTRY_ID}")
+
+        assert response.status_code == 204
+
+    async def test_delete_not_found_returns_404(self) -> None:
+        """존재하지 않는 항목 삭제 시 404 반환."""
+        session = _make_mock_session()
+        result = MagicMock()
+        result.mappings.return_value.one_or_none.return_value = None
+        session.execute.return_value = result
+        _override_deps(session)
+
+        async with AsyncClient(
+            transport=ASGITransport(app=app), base_url="http://test"
+        ) as client:
+            response = await client.delete(f"/api/journal/{_ENTRY_ID}")
+
+        assert response.status_code == 404

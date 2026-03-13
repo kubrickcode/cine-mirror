@@ -9,8 +9,8 @@ from typing import Annotated, Literal
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query
-from pydantic import BaseModel
-from sqlalchemy import select
+from pydantic import BaseModel, Field
+from sqlalchemy import delete, select, text, update
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -21,6 +21,13 @@ from src.db.models import (
     journal_entry,
     movie_cache,
     movie_director_cache,
+    review,
+)
+from src.domain.rating import InvalidRatingError, validate_rating
+from src.domain.status import (
+    InvalidTransitionError,
+    get_allowed_transitions,
+    transition_status,
 )
 from src.events.publisher import publish_enrich_requested
 
@@ -70,7 +77,7 @@ class JournalEntryItem(BaseModel):
     movie: MovieInfo | None
     rating: float | None
     short_review: str | None
-    status: str
+    status: JournalStatus
     tmdb_id: int
     updated_at: datetime
 
@@ -78,12 +85,13 @@ class JournalEntryItem(BaseModel):
 class JournalEntryDetail(BaseModel):
     """저널 항목 상세."""
 
+    allowed_transitions: list[str]
     created_at: datetime
     id: UUID
     movie: MovieDetailInfo | None
     rating: float | None
     short_review: str | None
-    status: str
+    status: JournalStatus
     tmdb_id: int
     updated_at: datetime
 
@@ -94,6 +102,14 @@ class JournalListResponse(BaseModel):
     data: list[JournalEntryItem]
     has_next: bool
     next_cursor: str | None
+
+
+class PatchJournalRequest(BaseModel):
+    """저널 항목 부분 수정 요청."""
+
+    rating: float | None = None
+    short_review: str | None = Field(None, max_length=500)
+    status: str | None = None
 
 
 def _encode_cursor(updated_at: datetime, entry_id: UUID) -> str:
@@ -253,11 +269,20 @@ async def get_journal_entry(
     user_id: UserIdDep,
 ) -> JournalEntryDetail:
     """저널 항목 상세 조회 (movie_cache + director_cache LEFT JOIN)."""
+    row = await _fetch_entry_row(session, entry_id, user_id)
+    if row is None:
+        raise HTTPException(status_code=404, detail="저널 항목을 찾을 수 없습니다.")
+
+    directors = await _fetch_directors(session, row["tmdb_id"])
+    return _build_entry_detail(row, directors)
+
+
+async def _fetch_entry_row(
+    session: AsyncSession, entry_id: UUID, user_id: UUID
+) -> dict | None:
+    """저널 항목 + movie_cache 조인 행을 조회한다."""
     je = journal_entry
     mc = movie_cache
-    dc = director_cache
-    mdc = movie_director_cache
-
     row = (
         await session.execute(
             select(
@@ -277,23 +302,30 @@ async def get_journal_entry(
             .where(je.c.id == entry_id, je.c.user_id == user_id)
         )
     ).mappings().one_or_none()
+    return dict(row) if row is not None else None
 
-    if row is None:
-        raise HTTPException(status_code=404, detail="저널 항목을 찾을 수 없습니다.")
 
-    directors = [
-        DirectorItem(name=r["name"], tmdb_person_id=r["tmdb_person_id"])
-        for r in (
-            await session.execute(
-                select(dc.c.name, dc.c.tmdb_person_id)
-                .select_from(
-                    mdc.join(dc, mdc.c.director_tmdb_person_id == dc.c.tmdb_person_id)
-                )
-                .where(mdc.c.movie_tmdb_id == row["tmdb_id"])
+async def _fetch_directors(session: AsyncSession, tmdb_id: int) -> list[DirectorItem]:
+    """movie의 감독 목록을 조회한다."""
+    dc = director_cache
+    mdc = movie_director_cache
+    rows = (
+        await session.execute(
+            select(dc.c.name, dc.c.tmdb_person_id)
+            .select_from(
+                mdc.join(dc, mdc.c.director_tmdb_person_id == dc.c.tmdb_person_id)
             )
-        ).mappings().all()
+            .where(mdc.c.movie_tmdb_id == tmdb_id)
+        )
+    ).mappings().all()
+    return [
+        DirectorItem(name=r["name"], tmdb_person_id=r["tmdb_person_id"])
+        for r in rows
     ]
 
+
+def _build_entry_detail(row: dict, directors: list[DirectorItem]) -> JournalEntryDetail:
+    """DB 행 + 감독 목록으로 JournalEntryDetail을 생성한다."""
     movie_detail = (
         MovieDetailInfo(
             directors=directors,
@@ -305,8 +337,8 @@ async def get_journal_entry(
         if row["movie_tmdb_id"] is not None
         else None
     )
-
     return JournalEntryDetail(
+        allowed_transitions=get_allowed_transitions(row["status"]),
         created_at=row["created_at"],
         id=row["id"],
         movie=movie_detail,
@@ -316,3 +348,102 @@ async def get_journal_entry(
         tmdb_id=row["tmdb_id"],
         updated_at=row["updated_at"],
     )
+
+
+@router.patch("/{entry_id}", response_model=JournalEntryDetail)
+async def patch_journal_entry(
+    entry_id: UUID,
+    body: PatchJournalRequest,
+    session: SessionDep,
+    user_id: UserIdDep,
+) -> JournalEntryDetail:
+    """저널 항목을 부분 수정한다 (status, rating, short_review).
+
+    상태 전이 규칙 위반 시 422 + 허용 전이 목록 반환.
+    평점 규칙 위반 시 422.
+    """
+    row = await _fetch_entry_row(session, entry_id, user_id)
+    if row is None:
+        raise HTTPException(status_code=404, detail="저널 항목을 찾을 수 없습니다.")
+
+    patch_fields: dict[str, object] = {}
+    provided = body.model_fields_set
+
+    if "status" in provided:
+        if body.status is None:
+            raise HTTPException(
+                status_code=422,
+                detail={"message": "status는 null일 수 없습니다."},
+            )
+        try:
+            new_status = transition_status(row["status"], body.status)
+        except InvalidTransitionError as exc:
+            raise HTTPException(
+                status_code=422,
+                detail={
+                    "message": str(exc),
+                    "allowed_transitions": exc.allowed,
+                },
+            ) from exc
+        patch_fields["status"] = new_status
+
+    if "rating" in provided:
+        try:
+            validate_rating(body.rating)
+        except InvalidRatingError as exc:
+            raise HTTPException(
+                status_code=422,
+                detail={"message": str(exc)},
+            ) from exc
+        patch_fields["rating"] = body.rating
+
+    if "short_review" in provided:
+        patch_fields["short_review"] = body.short_review
+
+    if patch_fields:
+        patch_fields["updated_at"] = text("NOW()")
+        await session.execute(
+            update(journal_entry)
+            .where(
+                journal_entry.c.id == entry_id,
+                journal_entry.c.user_id == user_id,
+            )
+            .values(**patch_fields)
+        )
+        await session.commit()
+        # 업데이트 후 최신 상태를 movie_cache 조인으로 재조회
+        row = await _fetch_entry_row(session, entry_id, user_id)
+        if row is None:
+            raise HTTPException(status_code=404, detail="저널 항목을 찾을 수 없습니다.")
+
+    directors = await _fetch_directors(session, row["tmdb_id"])
+    return _build_entry_detail(row, directors)
+
+
+@router.delete("/{entry_id}", status_code=204)
+async def delete_journal_entry(
+    entry_id: UUID,
+    session: SessionDep,
+    user_id: UserIdDep,
+) -> None:
+    """저널 항목 + 연관 review를 cascade 삭제한다."""
+    row = (
+        await session.execute(
+            select(journal_entry.c.id).where(
+                journal_entry.c.id == entry_id,
+                journal_entry.c.user_id == user_id,
+            )
+        )
+    ).mappings().one_or_none()
+
+    if row is None:
+        raise HTTPException(status_code=404, detail="저널 항목을 찾을 수 없습니다.")
+
+    # Constraint: review.journal_entry_id FK에 ON DELETE CASCADE 없음 — 수동 삭제
+    await session.execute(
+        delete(review).where(review.c.journal_entry_id == entry_id)
+    )
+    await session.execute(
+        delete(journal_entry).where(journal_entry.c.id == entry_id)
+    )
+    await session.commit()
