@@ -85,6 +85,22 @@ cfj-lint:
 cfj-lint-fix:
     just cfj lint-fix
 
+# frontend 명령어 (fe- prefix)
+fe +args:
+    just --justfile {{ root_dir }}/frontend/justfile {{ args }}
+
+fe-sync:
+    just fe sync
+
+fe-dev:
+    just fe dev
+
+fe-build:
+    just fe build
+
+fe-typecheck:
+    just fe typecheck
+
 sync-agents:
     bash scripts/sync-agents.sh
 

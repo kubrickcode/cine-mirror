@@ -1,6 +1,11 @@
 .env
 .pnpm-store
 node_modules
+dist/
+__pycache__/
+*.pyc
+*.pyo
+.venv/
 
 .claude/settings.local.json
 .claude-sessions/

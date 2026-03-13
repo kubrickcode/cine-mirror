@@ -1,0 +1,17 @@
+set dotenv-load := true
+
+# 의존성 설치
+sync:
+    pnpm install
+
+# 개발 서버 기동 (HMR)
+dev:
+    pnpm dev
+
+# 프로덕션 빌드
+build:
+    ALLOW_BUILD=1 pnpm build
+
+# 타입 체크
+typecheck:
+    pnpm exec tsc --noEmit
